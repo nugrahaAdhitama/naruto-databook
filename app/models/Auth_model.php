@@ -32,23 +32,32 @@ class Auth_model {
         if(isset($data['kirim'])) {
             $password = $data['password'];
 
-            $query = 'SELECT * FROM '. $this->table . 'WHERE email =:email';
+            $query = 'SELECT * FROM '. $this->table . ' WHERE email =:email';
 
             $this->db->query($query);
+
+            // bind email
+            $this->db->bind('email', $data['email']);
+
+            // coba execute
+            $this->db->execute();
+
             // $this->db->bind('email', $data['email']);
             // $this->db->bind('password', $data['password']);
             // $this->db->execute();
 
 
-            if($this->db->resultSet($query) === 1) {
+            if($this->db->rowCount($query) === 1) {
                 // cek password
                 $user = $this->db->single($query);
 
-                if(password_verify($password, $user['password'])) {
+                if(password_verify($password, $user['password']) || $password == $user['password']) {
                     $_SESSION['email'] = $data['email'];
 
                     $_SESSION['login'] = true;
-                    exit;
+                    // exit jadi true
+                    // exit;
+                    return true;
                 }
             }
         }

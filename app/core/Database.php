@@ -135,15 +135,15 @@ class Database {
         $this->stmt->execute();
     }
 
-    public function resultSet() 
+    public function resultSet($param = []) 
     {
-        $this->execute();
+        $this->execute($param);
         return $this->stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    public function single()
+    public function single($param = '')
     {
-        $this->execute();
+        $this->execute($param);
         return $this->stmt->fetch(PDO::FETCH_ASSOC);
     }
 

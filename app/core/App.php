@@ -1,5 +1,5 @@
 <?php
-error_reporting(0);
+// error_reporting(0); error reporting kita disable
 
 class App {
     protected $controller = 'home';
@@ -9,6 +9,14 @@ class App {
     public function __construct()
     {
         $url = $this->parseUrl();
+
+        /** 
+         * Fixed warning:
+         * Trying to access array offset on value of type
+         * null in </~> on line 16.
+         * 
+        */
+        if (!isset($url[0])) $url[0] = $this->controller;
 
         // parse controller
         if(file_exists('../app/controllers/'. $url[0] . '.php')) {

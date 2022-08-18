@@ -26,8 +26,9 @@ class Auth extends Controller {
     }
 
     public function login() {
-        if($this->model('Auth_model')->login($_POST['kirim']) ) {
+        if($this->model('Auth_model')->login($_POST) ) {
             echo "SUKSES";
+            header("Location: " . BASEURL);
         } else {
             echo "GAGAL";
         }

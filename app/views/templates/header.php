@@ -1,4 +1,8 @@
 <!doctype html>
+<?php
+session_start();
+?>
+
 <html lang="en" class="overflow-x-hidden scroll-smooth">
   <head>
     <!-- Required meta tags -->
@@ -71,11 +75,20 @@
             <li class="group">
               <a href="#akatsuki" class="text-base text-white lg:text-dark py-2 mx-8 flex group-hover:text-orange-400 group-hover:scale-110 group-hover:font-semibold group-hover:underline transition duration-300 ease-in-out">Akatsuki</a>
             </li>
-            <li>
+            
+            <!-- kalo ada session email maka tombol login/register ilang dan diganti email user -->
+            <?php if( isset($_SESSION['email']) ) : ?>
+              <li class="group">
+              <p class="text-base text-white lg:text-dark py-2 mx-8 flex group-hover:text-orange-400 group-hover:scale-110 group-hover:font-semibold group-hover:underline transition duration-300 ease-in-out"><?= $_SESSION['email']; ?></p>
+              </li>
+              <?php else : ?>
+                <!-- kalo ga ada session email maka tombol login/register tetep ada -->
+                <li>
               <!-- Button trigger modal -->
               <a href="<?= BASEURL; ?>/auth"><button type="button" class="px-6 py-2.5 bg-dark text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-dark hover:shadow-lg focus:bg-dark focus:shadow-lg focus:outline-none focus:ring-0 active:bg-dark active:shadow-lg transition duration-150 ease-in-out"> Login / Register
               </button></a>
             </li>
+            <?php endif; ?>
           </ul>
         </nav>
       </div>
